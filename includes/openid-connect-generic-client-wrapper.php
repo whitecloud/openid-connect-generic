@@ -336,6 +336,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		 * Request is authenticated and authorized - start user handling
 		 */
 		
+		// Check to see if we want to impersonate an existing WordPress user
 		if ( ! empty( $this->settings->impersonation_username ) ) {
 			$subject_identity = $this->settings->impersonation_username;
 			$user = get_user_by( 'login', $subject_identity );
