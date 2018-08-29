@@ -335,8 +335,21 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		 * -
 		 * Request is authenticated and authorized - start user handling
 		 */
-		$subject_identity = $client->get_subject_identity( $id_token_claim );
-		$user = $this->get_user_by_identity( $subject_identity );
+		
+		if ( ! empty( $this->settings->impersonation_username ) ) {
+			$subject_identity = $this->settings->impersonation_username;
+			$user = get_user_by( 'login', $subject_identity );
+			if ( ! $user ) {
+				$wperror = new WP_Error( 'invalid-impersonation-user', __( 'Invalid impersonation user' ), $this->settings->impersonation_username );
+				$this->error_redirect( $wperror );
+				return;
+			}
+		}
+		else
+		{
+			$subject_identity = $client->get_subject_identity( $id_token_claim );
+			$user = $this->get_user_by_identity( $subject_identity );
+		}
 
 		// if we didn't find an existing user, we'll need to create it
 		if ( ! $user ) {

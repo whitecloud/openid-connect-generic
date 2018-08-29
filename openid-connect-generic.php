@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: OpenID Connect Generic
-Plugin URI: https://github.com/daggerhart/openid-connect-generic
-Description:  Connect to an OpenID Connect generic client using Authorization Code Flow
+Plugin Name: WCA OpenID Connect Generic
+Plugin URI: https://github.com/whitecloud/openid-connect-generic
+Description:  Connect to an OpenID Connect generic client using Authorization Code Flow with WhiteCloud enhancements
 Version: 3.3.1
 Author: daggerhart
 Author URI: http://www.daggerhart.com
@@ -192,6 +192,7 @@ class OpenID_Connect_Generic {
 			array(
 				// oauth client settings
 				'login_type'        => 'button',
+				'show_login_form_url' => '',
 				'client_id'         => '',
 				'client_secret'     => '',
 				'scope'             => '',
@@ -208,6 +209,7 @@ class OpenID_Connect_Generic {
 				'email_format'       => '{email}',
 				'displayname_format' => '',
 				'identify_with_username' => false,
+				'impersonation_username' => '',
 
 				// plugin settings
 				'enforce_privacy' => 0,

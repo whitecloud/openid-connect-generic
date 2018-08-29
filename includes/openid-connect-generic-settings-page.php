@@ -48,6 +48,13 @@ class OpenID_Connect_Generic_Settings_Page {
 				),
 				'section'     => 'client_settings',
 			),
+			'show_login_form_url'      => array(
+				'title'       => __( 'Show Login Form For URL' ),
+				'description' => __( 'When accessing the specific URL directly, don\'t automatically redirect to SSO login. Only valid when Auto Login - SSO option is selected. Leave blank to always redirect to SSO login' ),
+				'example'     => 'wp-admin',
+				'type'        => 'text',
+				'section'     => 'client_settings',
+			),
 			'client_id'         => array(
 				'title'       => __( 'Client ID' ),
 				'description' => __( 'The ID this client will be recognized as when connecting the to Identity provider server.' ),
@@ -154,6 +161,13 @@ class OpenID_Connect_Generic_Settings_Page {
 				'description' => __( 'If checked, the user\'s identity will be determined by the user name instead of the email address.' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
+			),
+			'impersonation_username'     => array(
+				'title'       => __( 'Impersonation Username' ),
+				'description' => __( 'The username of the WordPress user that you would like to impersonate after the user has been authenticated externally. Leave blank to create new WordPress users for each external user. The user must exist in WordPress for this to succeed.' ),
+				'example'     => 'googleuser',
+				'type'        => 'text',
+				'section'     => 'user_settings',
 			),
 			'link_existing_users'   => array(
 				'title'       => __( 'Link Existing Users' ),

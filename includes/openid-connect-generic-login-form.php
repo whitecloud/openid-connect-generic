@@ -40,15 +40,28 @@ class OpenID_Connect_Generic_Login_Form {
 	 */
 	function handle_redirect_login_type_auto()
 	{
-		if ( $GLOBALS['pagenow'] == 'wp-login.php' && $this->settings->login_type == 'auto'
-			&& ( ! isset( $_GET[ 'action' ] ) || $_GET[ 'action' ] !== 'logout' ) )
-		{
-			if (  ! isset( $_GET['login-error'] ) ) {
-				wp_redirect( $this->client_wrapper->get_authentication_url() );
-				exit;
+		if ( $GLOBALS['pagenow'] == 'wp-login.php' && $this->settings->login_type == 'auto' ) {
+			// Show standard login if coming from specific url
+			if (! empty( $this->settings->show_login_form_url ) ) {
+				if ( isset($_GET['redirect_to']) && strpos($_GET['redirect_to'], $this->settings->show_login_form_url) !== false)
+				{
+					return;
+				}
+				if ( isset($_GET['wpe-login']) )
+				{
+					return;
+				}
 			}
-			else {
-				add_action( 'login_footer', array( $this, 'remove_login_form' ), 99 );
+		
+			if ( ! isset( $_GET[ 'action' ] ) || $_GET[ 'action' ] !== 'logout' )
+			{
+				if (  ! isset( $_GET['login-error'] ) ) {
+					wp_redirect( $this->client_wrapper->get_authentication_url() );
+					exit;
+				}
+				else {
+					add_action( 'login_footer', array( $this, 'remove_login_form' ), 99 );
+				}
 			}
 		}
 	}
